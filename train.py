@@ -112,7 +112,7 @@ config = LoraConfig(
 
 # lora_checkpoint = '/home/jovyan/gpt13/13b_pretrain_119000/outputs_instr_psih12/checkpoint-38000'
 
-model = get_peft_model(base_model, config)
+model = PeftModel.from_pretrained(base_model, "/home/aegotovtsev/neural_2024/artifacts/result/checkpoint_best", is_trainable=True, torch_dtype=torch.float32)  # torch_dtype=torch.float16
 
 # model = PeftModel.from_pretrained(base_model, lora_checkpoint, is_trainable=True, torch_dtype=torch.float16)  # torch_dtype=torch.float16
 
@@ -244,9 +244,9 @@ save_lora_callback = SaveLoRACallback(output_dir=os.path.join(res_dir, "trained"
 # TYT
 
 batch_size = 4
-epochs = 6
+epochs = 7
 acc_steps = 4
-save_steps = 300
+save_steps = 1000
 logging_steps = 150
 print_trainable_parameters(model)
 
@@ -260,7 +260,7 @@ trainer = transformers.Trainer(
         gradient_accumulation_steps=acc_steps,
         do_train=True,
         warmup_steps=250,
-        learning_rate=3e-4,
+        learning_rate=4e-5,
         bf16=True,
         logging_steps=logging_steps,
         output_dir=res_dir,
@@ -268,7 +268,7 @@ trainer = transformers.Trainer(
         save_strategy='steps',
         save_steps=save_steps,
         # do_eval=True,
-        report_to = ["tensorboard"],
+        report_to = ["tensorboard", ""],
         # evaluation_strategy='steps',
         prediction_loss_only=True,
         per_device_eval_batch_size=batch_size,

@@ -1,0 +1,6 @@
+*tensorboard*
+artifacts*
+venv
+check_checkpoints_2.csv
+__pycache__
+.env

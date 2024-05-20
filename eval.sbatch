@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=24
 #SBATCH --gpus-per-node=1
 #SBATCH --ntasks=1
-#SBATCH --time=0-0:15
+#SBATCH --time=0-3:00
 #SBATCH --mail-user=artemiygotovtsev@gmail.com
 #SBATCH --mail-type=ALL
 #SBATCH --output="out.log"%j.out
